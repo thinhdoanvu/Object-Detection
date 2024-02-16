@@ -47,7 +47,33 @@ Setup complete ✅ (2 CPUs, 12.7 GB RAM, 26.4/107.7 GB disk)
 
 ### Thiết lập cấu hình
 path: /content/drive/MyDrive/DemHongCau/yolov8/data
+
+train: images/train
+
+val: images/val
+
+nc: 1
+
+names: ['hongcau']
+
+## LƯU Ý:
+Lưu ý: cần copy ít nhất 1 ảnh (hình + label) vào thư mục val yolov8n.pt nghĩa là file pretrain weight của yolo nornal (khác với extra, tiny...)
+![image](https://github.com/thinhdoanvu/Object-Detection/assets/22977443/3e9a2e36-9130-494f-a83f-43599065895a)
+
+### Train: chỉnh sửa file config.yaml
+path: /content/drive/MyDrive/DemHongCau/yolov8/data
 train: images/train
 val: images/val
 nc: 1
 names: ['hongcau']
+
+### Train
+%cd /content/drive/MyDrive/DemHongCau/yolov8/data
+
+from ultralytics import YOLO
+
+model = YOLO("yolov8n.pt")  # load a pretrained model (recommended for training)
+
+model.train(data="hongcau_config.yaml", epochs=100)  # train the model
+
+metrics = model.val()  # evaluate model performance on the validation set

@@ -20,16 +20,24 @@ drive.mount('/content/drive')
 
 ### Chuẩn bị data: tải yolov8
 %%bash
+
 cd /content/drive/MyDrive/
+
 mkdir -p DemHongCau
+
 cd DemHongCau
+
 git clone https://github.com/ultralytics/ultralytics.git
+
 mv ultralytics yolov8
+
 ls
 
 ### Chuẩn bị data: setup môi trường
 %pip install ultralytics
+
 import ultralytics
+
 ultralytics.checks()
 
 #### Kết quả: 

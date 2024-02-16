@@ -62,9 +62,13 @@ Lưu ý: cần copy ít nhất 1 ảnh (hình + label) vào thư mục val yolov
 
 ### Train: chỉnh sửa file config.yaml
 path: /content/drive/MyDrive/DemHongCau/yolov8/data
+
 train: images/train
+
 val: images/val
+
 nc: 1
+
 names: ['hongcau']
 
 ### Train
@@ -77,3 +81,11 @@ model = YOLO("yolov8n.pt")  # load a pretrained model (recommended for training)
 model.train(data="hongcau_config.yaml", epochs=100)  # train the model
 
 metrics = model.val()  # evaluate model performance on the validation set
+
+#### Lưu ý:
+model = YOLO("yolov8n.pt") tương ứng với phiên bản của YOLOv8
+![image](https://github.com/thinhdoanvu/Object-Detection/assets/22977443/423a2a02-add7-4383-9079-0df072546368)
+
+
+#### Kết quả:
+![image](https://github.com/thinhdoanvu/Object-Detection/assets/22977443/82cb22a2-908c-4506-b2c7-14d94867aac7)

@@ -42,4 +42,12 @@ ultralytics.checks()
 
 #### Kết quả: 
 Ultralytics YOLOv8.1.14 🚀 Python-3.10.12 torch-2.1.0+cu121 CPU (Intel Xeon 2.20GHz)
+
 Setup complete ✅ (2 CPUs, 12.7 GB RAM, 26.4/107.7 GB disk)
+
+### Thiết lập cấu hình
+path: /content/drive/MyDrive/DemHongCau/yolov8/data
+train: images/train
+val: images/val
+nc: 1
+names: ['hongcau']

@@ -92,3 +92,14 @@ model = YOLO("yolov8n.pt") tương ứng với phiên bản của YOLOv8
 
 ![image](https://github.com/thinhdoanvu/Object-Detection/assets/22977443/d505478b-e288-443c-963f-4311a8a5734c)
 
+## Lưu ý: 
+Kết quả:
+100 epochs completed in 0.998 hours.
+Optimizer stripped from runs/detect/train4/weights/last.pt, 6.2MB
+Optimizer stripped from runs/detect/train4/weights/best.pt, 6.2MB
+
+### Validating runs/detect/train4/weights/best.pt...
+
+## Weight file
+![image](https://github.com/thinhdoanvu/Object-Detection/assets/22977443/55aa3a8f-2282-4719-812f-cddaa4fc5d80)
+

@@ -130,5 +130,5 @@ yolo detect predict model=weights/best.pt source='predict/*.jpg'
 ![image](https://github.com/thinhdoanvu/Object-Detection/assets/22977443/00be5514-c4e9-4b66-92a9-45d485c5410c)
 
 ### Ẩn label và confidence score:
-yolo detect predict model=weights/best.pt source='predict/*.jpg' show_labels=False, show_conf=False
+yolo detect predict model=weights/best.pt source='predict/*.jpg' show_labels=False show_conf=False
 ![image](https://github.com/thinhdoanvu/Object-Detection/assets/22977443/a563b38e-07bb-45c6-8cb7-18f36dce7239)

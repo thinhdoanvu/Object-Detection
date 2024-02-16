@@ -89,3 +89,6 @@ model = YOLO("yolov8n.pt") tương ứng với phiên bản của YOLOv8
 
 #### Kết quả:
 ![image](https://github.com/thinhdoanvu/Object-Detection/assets/22977443/82cb22a2-908c-4506-b2c7-14d94867aac7)
+
+![image](https://github.com/thinhdoanvu/Object-Detection/assets/22977443/d505478b-e288-443c-963f-4311a8a5734c)
+

@@ -95,11 +95,40 @@ model = YOLO("yolov8n.pt") tương ứng với phiên bản của YOLOv8
 ## Lưu ý: 
 Kết quả:
 100 epochs completed in 0.998 hours.
-Optimizer stripped from runs/detect/train4/weights/last.pt, 6.2MB
-Optimizer stripped from runs/detect/train4/weights/best.pt, 6.2MB
+Optimizer stripped from runs/detect/train/weights/last.pt, 6.2MB
+Optimizer stripped from runs/detect/train/weights/best.pt, 6.2MB
 
-### Validating runs/detect/train4/weights/best.pt...
+### Validating runs/detect/train/weights/best.pt...
 
 ## Weight file
 ![image](https://github.com/thinhdoanvu/Object-Detection/assets/22977443/55aa3a8f-2282-4719-812f-cddaa4fc5d80)
 
+%cd /content/drive/MyDrive/DemHongCau/yolov8/data
+
+!yolo detect val model="runs/detect/train4/weights/best.pt" data="hongcau_config.yaml"
+
+### Kết quả:
+
+image 1/2 /content/drive/MyDrive/DemHongCau/yolov8/data/predict/2022-8-15-BF2-D32-0027.jpg: 512x640 113 hongcaus, 263.1ms
+
+image 2/2 /content/drive/MyDrive/DemHongCau/yolov8/data/predict/2022-8-15-C1-D32-0015.jpg: 512x640 161 hongcaus, 228.0ms
+
+Results saved to runs/detect/predict2
+![2022-8-15-C1-D32-0015](https://github.com/thinhdoanvu/Object-Detection/assets/22977443/faa5578f-cfa5-4850-ac50-be4db6b0c5dd)
+
+# PREDICT TRÊN PC
+#### 1. Install yolov8: pip install ultralytics
+#### 2. Tạo folder predict và đưa ảnh cần predict vào
+#### 3. Tải folder weights sau khi train
+#### 4. Thực hiện:
+cd /Users/thinhdoanvu/Documents/AI/ML/HongCau_Tom
+![image](https://github.com/thinhdoanvu/Object-Detection/assets/22977443/d1e9d157-e541-4844-aa59-10d5589a3dcd)
+
+yolo detect predict model=weights/best.pt source='predict/*.jpg'
+![image](https://github.com/thinhdoanvu/Object-Detection/assets/22977443/5fd627f2-7872-4c65-96ee-dfad9d951a02)
+
+![image](https://github.com/thinhdoanvu/Object-Detection/assets/22977443/00be5514-c4e9-4b66-92a9-45d485c5410c)
+
+### Ẩn label và confidence score:
+yolo detect predict model=weights/best.pt source='predict/*.jpg' show_labels=False, show_conf=False
+![image](https://github.com/thinhdoanvu/Object-Detection/assets/22977443/a563b38e-07bb-45c6-8cb7-18f36dce7239)

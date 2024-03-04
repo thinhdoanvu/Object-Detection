@@ -1,1 +1,8 @@
+# Check list: conda env list
+...
 
+# Syntax: 
+  conda activate pytorch
+  conda active thanh-py3.10
+
+# Deactive: conda deactivate

@@ -48,3 +48,5 @@ plt.imshow(image_rgb)
 plt.axis("off")  # Hide axes
 plt.title("Labeled Image")
 plt.show()
+plt.savefig(f'outputs/v11l_IP038000453.jpg')  # Save the plot as an image file
+plt.close()

@@ -31,6 +31,8 @@ cam = EigenCAM(model, target_layers,task='od')
 grayscale_cam = cam(rgb_img)[0, :, :]
 cam_image = show_cam_on_image(img, grayscale_cam, use_rgb=True)
 plt.imshow(cam_image)
-plt.show()
+
 plt.savefig(f'outputs/v11l_IP038000453.jpg')  # Save the plot as an image file
+
+plt.show()
 plt.close()

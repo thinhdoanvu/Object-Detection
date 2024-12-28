@@ -1,0 +1,27 @@
+Step 1/ clone github: 
+  git clone https://github.com/yangdi-cv/Bio-DETR.git
+
+Step 2/ Create environment from old evn
+  conda create --name biodetr --clone thanh-py3.10
+
+Step 3/ Install bidetr
+  pip install .
+
+Step 4. Error 1. Disable Update ALBUMENTATIONS
+  Window search "Edit system Environment Variables"
+    - Click Environment Variable
+      + New (Under System Variable) 
+        * Name = NO_ALBUMENTATIONS_UPDATE
+        * Value = 1
+
+Step 5. Error KML
+  - Click Environment Variable
+    + New (Under System Variable) 
+        * Name = KMP_DUPLICATE_LIB_OK
+        * Value = TRUE
+
+Step 6. Training
+  yolo task=detect mode=train model=cfg/network/rtdetr_bio-detr.yaml data=../datasets/r2000v1/r2000v1.yaml batch=16 epochs=300
+
+Step 7. Evaluate
+  

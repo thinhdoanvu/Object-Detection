@@ -1,0 +1,9 @@
+#PREDICT
+from ultralytics import YOLO  # Load a model
+model=YOLO("./runs/detect/train3/weights/best.pt")
+model.predict("../coco/smalltest/images/*.jpg", save=True, imgsz=640, conf=0.5)
+
+#PREDICT
+from ultralytics import YOLO  # Load a model
+model=YOLO("./runs/detect/neckvit_fishblood/weights/best.pt")
+model.predict("../FishBlood/308908_DemHongCau/test/*.jpg", save=True, imgsz=640, conf=0.5)

@@ -3,6 +3,7 @@ Step 1/ clone github:
 
 Step 2/ Create environment from old evn
   conda create --name biodetr --clone thanh-py3.10
+  activate biodetr
 
 Step 3/ Install bidetr
   pip install .
@@ -23,5 +24,6 @@ Step 5. Error KML
 Step 6. Training
   yolo task=detect mode=train model=cfg/network/rtdetr_bio-detr.yaml data=../datasets/r2000v1/r2000v1.yaml batch=16 epochs=300
 
-Step 7. Evaluate
+Step 7. Close Anaconda Prompt and Open again
   
+Step 8. Evalue (see outside with How to evaluate file)

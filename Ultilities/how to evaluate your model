@@ -1,0 +1,7 @@
+from ultralytics import YOLO
+
+# Load the model from yor best model
+model = YOLO("E:/thanh/ntu_group/thinh/ObjectDetection/yolo11/ultralytics/runs/detect/r2000_k4_81.1/weights/best.pt")
+
+# Run the evaluation from your config file
+results = model.val(data="E:/thanh/ntu_group/thinh/ObjectDetection/yolo11/ultralytics/models/hsdpa/Final_v2_guipaper.yaml")

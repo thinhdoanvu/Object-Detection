@@ -1,0 +1,172 @@
+C:\Users\csipl\anaconda3\envs\thinhdv\Lib\site-packages\ultralytics\nn\tasks.py
+E:\thanh\ntu_group\thinh\ObjectDetection\ultralytics\nn
+Sua xong task,chay lai Python
+
+#### DANH CHO ULTRALYTICS AFTER UPDATE
+C:\Users\csipl\anaconda3\envs\thinhdv\Lib\site-packages\ultralytics\nn\tasks.py
+C:\Users\csipl\anaconda3\envs\thinhdv\Lib\site-packages\ultralytics\nn\modules\block.py
+	__all__ = (
+    "DFL",...
+	
+	)
+	chen them Blocks
+
+from ultralytics import YOLO
+model=YOLO("./models/v8/resnet18.yaml") # Load a model
+model.train(data="../coco/coco.yaml", epochs=200, batch=16, imgsz=640) 
+# batch>16 + imgsz=640: out of memory 
+#batch=128 > 64: + imgsz=320
+
+## Classification, dogcat = 224
+from ultralytics import YOLO
+model=YOLO("./models/v8/yolov8n-cls.yaml")
+model.train(data="../../Image-Classification/playcards/playcard.yaml", epochs=100, batch=128, imgsz=224) 
+
+## Object Detection imgsz= 640
+from ultralytics import YOLO
+model=YOLO("./models/v8/yolov8n-cls.yaml")
+model.train(data="../coco/coco.yaml", epochs=100, batch=16, imgsz=640) 
+
+# Fish Blood
+# cd ultralytics
+from ultralytics import YOLO
+model=YOLO("./models/v8/yolov8l.yaml")
+model.train(data="../FishBlood/308908_DemHongCau/data_config.yaml", epochs=100, batch=4, imgsz=640)
+
+# cd ultralytics
+from ultralytics import YOLO
+model=YOLO("./models/v8/yolovitneck.yaml")
+model.train(data="../FishBlood/308908_DemHongCau/data_config.yaml", epochs=100, batch=4, imgsz=640)
+
+# cd ultralytics
+from ultralytics import YOLO
+model=YOLO("./models/v8/mhsa_bb_neck.yaml")
+#model.train(data="../FishBlood/308908_DemHongCau/data_config.yaml", epochs=100, batch=4, imgsz=640)
+model.train(data="../BloodCell/bloodcell.yaml", epochs=200, batch=4, imgsz=640)
+
+# ULTRALYTICS NEW: IP102##########################################
+cd ultralytics
+from ultralytics import YOLO
+
+model=YOLO("./cfg/models/v8/newArc_v2.yaml")
+model.train(data="../ip102/ip102.yaml", epochs=200, batch=32, imgsz=640)
+
+#y1(x), y2(y1), y3(y2), y4(y1)
+#290 layers, 63,207,639 parameters, 63,207,623 gradients, 168.0 GFLOPs ==> 68.5% 
+
+#y1(x), y2(y1), y3(y2), y4(y1), x: ver2 (C2f = 1 for all Head)BEST MODEL
+#290 layers, 63,862,999 parameters, 63,862,983 gradients, 171.3 GFLOPs ==> 68.6%
+
+#y1(x), y2(y1), y3(y2), y4(y1), number C2f tai Neck  nhu v8: ver3
+#346 layers, 79,600,855 parameters, 79,600,839 gradients, 201.6 GFLOPs ==> 68.6%
+
+#y1(x), y2(y1), y3(y2), y4(y1), Contiguous + ECA, CBSE - Conv BatchN Silu ECA: ver4
+#270 layers, 53,370,345 parameters, 53,370,329 gradients, 147.8 GFLOPs ==> 67.8%
+
+#y1(x), y2(y1), y3(y2), y4(y1), Contiguous + ECA: ver2
+#298 layers, 63,207,645 parameters, 63,207,629 gradients, 168.0 GFLOPs ==> 68,5%
+
+#y1(x), y2(y1), y3(y1), Contiguous: ver2 origin
+#290 layers, 62,552,279 parameters, 62,552,263 gradients, 160.8 GFLOPs ==> 68.2%
+
+#y1(x), y2(y1), y3(y1), x Contiguous: ver2 origin
+#290 layers, 63,207,639 parameters, 63,207,623 gradients, 164.2 GFLOPs ==> 67.5%
+
+#y1(x), y2(y1), y3(y2), y4(y1), x: ver2 (C3k2 = 1 for all Head apply for YOLOv11)
+#386 layers, 46,262,743 parameters, 46,262,727 gradients, 128.0 GFLOPs ==> 68.2%
+
+#ver2 origin on yolov11
+#314 layers, 51,134,679 parameters, 51,134,663 gradients, 144.2 GFLOPs ==> 67.3%
+
+#y1(x), y2(y1), x Contiguous: ver2 origin
+# 290 layers, 62,552,279 parameters, 62,552,263 gradients, 157.0 GFLOPs ==> 68.0%
+
+#y1(x), y2(y1),y3(y2), y4(y3), y5(y1) Contiguous: ver2 origin
+# 290 layers, 63,862,999 parameters, 63,862,983 gradients, 175.1 GFLOPs ==> 68.0%
+
+# y1(x), y2(y1), y3(y2), y4(y3)
+# 290 layers, 63,207,639 parameters, 63,207,623 gradients, 168.0 GFLOPs ==> 66.7%
+
+#y1(x), y2(y1), y3(y2), y4(y3), x, CBS
+#290 layers, 63,862,999 parameters, 63,862,983 gradients, 171.3 GFLOPs ==> 68.2%
+
+# y1(x), y2(x), y3(x), y4(x), CBS
+#63,207,639 parameters, 63,207,623 gradients, 168.0 GFLOPs ==> 68.1%
+
+#y1(x), y2(x), y3(x), y4(x), c2f
+# 316 layers, 73,699,543 parameters, 73,699,527 gradients, 208.3 GFLOPs ==> 67.8%
+
+#y1(x), y2(y1), y3(y1), y4(y1), CBS
+# 290 layers, 63,207,639 parameters, 63,207,623 gradients, 168.0 GFLOPs ==> 68.1%
+
+#6 module scale dot product:
+#64,518,359 parameters, 64,518,343 gradients, 182.3 GFLOPs ==> 67.2%
+
+model=YOLO("./cfg/models/v8/yolov8l.yaml")
+model.train(data="../ip102/ip102.yaml", epochs=200, batch=32, imgsz=640)
+#365 layers, 43,708,482 parameters, 43,708,466 gradients, 165.8 GFLOPs ==> 67.8%
+
+model=YOLO("./cfg/models/v9/yolov9m.yaml")
+model.train(data="../ip102/ip102.yaml", epochs=200, batch=32, imgsz=640)
+#603 layers, 20,232,066 parameters, 20,232,050 gradients, 78.0 GFLOPs ==> 68.7%
+
+model=YOLO("./cfg/models/v10/yolov10l.yaml")
+model.train(data="../ip102/ip102.yaml", epochs=200, batch=8, imgsz=640)
+# 628 layers, 25,922,612 parameters, 25,922,596 gradients, 128.1 GFLOPs ==> 62.5%
+
+model=YOLO("./cfg/models/11/yolov11l.yaml")
+model.train(data="../ip102/ip102.yaml", epochs=200, batch=32, imgsz=640)
+# 631 layers, 25,389,122 parameters, 25,389,106 gradients, 87.7 GFLOPs ==> 67.3%
+
+yolo train model=rtdetr-l.pt data=../ip102/ip102.yaml batch=16 epochs=100 imgsz=640
+# 681 layers, 33,015,686 parameters, 33,015,686 gradients, 108.4 GFLOPs ==> 62.5%
+
+# TPYOLO, BIODETR: activate tpyolo, biodetr
+model=YOLO("./cfg/tp-yolo.yaml")
+model.train(data="../ip102/ip102.yaml", epochs=200, batch=32, imgsz=640)???
+# tp-YOLO summary: 355 layers, 4640325 parameters, 4640309 gradients, 10.8 GFLOPs ==> ???
+
+# arc-2: on YOLO11: phat sinh loi canh bao rat kho chiu
+Edit: C:\Users\csipl\anaconda3\envs\thinhdv\Lib\site-packages\ultralytics\cfg
+Line: 27
+deterministic: False # (bool) whether to enable deterministic mode
+newArc_v2 summary: 314 layers, 58,588,141 parameters, 58,588,125 gradients, 150.6 GFLOPs ==> 
+
+# ULTRALYTICS NEW: Pest24 ##########################################
+cd ultralytics
+from ultralytics import YOLO
+
+model=YOLO("./cfg/models/v8/newArc_v2.yaml")
+model.train(data="../pest24/pest24.yaml", epochs=200, batch=32, imgsz=640)
+#newArc_v2 summary: 290 layers, 63,802,861 parameters, 63,802,845 gradients, 171.0 GFLOPs ==> 66.2%
+
+model=YOLO("./cfg/models/v8/yolov8l.yaml")
+model.train(data="../pest24/pest24.yaml", epochs=200, batch=32, imgsz=640)
+#365 layers, 43,708,482 parameters, 43,708,466 gradients, 165.8 GFLOPs ==> ???
+
+model=YOLO("./cfg/models/v9/yolov9m.yaml")
+model.train(data="../pest24/pest24.yaml", epochs=200, batch=32, imgsz=640)
+#603 layers, 20,232,066 parameters, 20,232,050 gradients, 78.0 GFLOPs ==> ???
+
+model=YOLO("./cfg/models/v10/yolov10l.yaml")
+model.train(data="../pest24/pest24.yaml", epochs=200, batch=8, imgsz=640)
+# 628 layers, 25,922,612 parameters, 25,922,596 gradients, 128.1 GFLOPs ==> ???
+
+model=YOLO("./cfg/models/11/yolov11l.yaml")
+model.train(data="../pest24/pest24.yaml", epochs=200, batch=32, imgsz=640)
+# 631 layers, 25,389,122 parameters, 25,389,106 gradients, 87.7 GFLOPs ==> ???
+
+****************** FROM CLI NOT PYTHON *************************
+yolo train model=rtdetr-l.pt data=../pest24/pest24.yaml batch=16 epochs=100 imgsz=640
+# 681 layers, 33,015,686 parameters, 33,015,686 gradients, 108.4 GFLOPs ==> ???
+
+
+#PREDICT
+from ultralytics import YOLO  # Load a model
+model=YOLO("./runs/detect/train3/weights/best.pt")
+model.predict("../coco/smalltest/images/*.jpg", save=True, imgsz=640, conf=0.5)
+
+#PREDICT
+from ultralytics import YOLO  # Load a model
+model=YOLO("./runs/detect/neckvit_fishblood/weights/best.pt")
+model.predict("../FishBlood/308908_DemHongCau/test/*.jpg", save=True, imgsz=640, conf=0.5)

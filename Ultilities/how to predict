@@ -1,9 +1,22 @@
-#PREDICT
+#------------------------------------------ PREDICT ------------------------------------#
+#YOLOvx
 from ultralytics import YOLO  # Load a model
-model=YOLO("./runs/detect/train3/weights/best.pt")
-model.predict("../coco/smalltest/images/*.jpg", save=True, imgsz=640, conf=0.5)
+model=YOLO("./runs/detect/r2000_k4_81.1/weights/best.pt")
+model=YOLO("./runs/detect/r2000_v9c_66.3/weights/best.pt")
+model=YOLO("./runs/detect/r2000_v10_60.5/weights/best.pt")
+model=YOLO("./runs/detect/r2000_11m_67.4/weights/best.pt")
+model=YOLO("./runs/detect/r2000_v8l_67.0/weights/best.pt")
+model.predict("E:/thanh/ntu_group/thinh/ObjectDetection/datasets/r2000v1/test/compare/*.jpg", save=True, imgsz=640, conf=0.5)
 
-#PREDICT
-from ultralytics import YOLO  # Load a model
-model=YOLO("./runs/detect/neckvit_fishblood/weights/best.pt")
-model.predict("../FishBlood/308908_DemHongCau/test/*.jpg", save=True, imgsz=640, conf=0.5)
+#RTDETR
+from ultralytics import RTDETR  # Load a model
+model=RTDETR("./runs/detect/r2000_detr/weights/best.pt")
+model.predict("E:/thanh/ntu_group/thinh/ObjectDetection/datasets/r2000v1/test/compare/*.jpg", save=True, imgsz=640, conf=0.5)
+
+#BIODETR
+activate biodetr
+go to: (biodetr) E:\thanh\ntu_group\thinh\ObjectDetection\Bio-DETR\
+
+from ultralytics import RTDETR  # Load a model
+model=RTDETR("./runs/detect/r2000_46.7/weights/best.pt")
+model.predict("E:/thanh/ntu_group/thinh/ObjectDetection/datasets/r2000v1/test/compare/*.jpg", save=True, imgsz=640, conf=0.5)

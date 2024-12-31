@@ -97,11 +97,10 @@ if __name__ == '__main__':
 
     # Show the Grad-CAM image without bounding boxes
     plt.imshow(cam_image)
-    plt.axis('off')
+    plt.savefig(f'faster_rcnn_no_bb.jpg')  # Save the plot as an image file
     plt.show()
+    plt.close()
 
     # Save the final Grad-CAM image
-    output_image_path = "faster-rcnn_no_bb.jpg"
-    cv2.imwrite(output_image_path, (cam_image * 255).astype(np.uint8))
-
-    print(f"Grad-CAM image saved at {output_image_path}")
+    # output_image_path = "faster-rcnn_no_bb.jpg"
+    # cv2.imwrite(output_image_path, (cam_image * 255).astype(np.uint8))

@@ -63,8 +63,9 @@ if __name__ == '__main__':
     from PIL import Image
 
     image_path = "images/IP038000453.jpg"  # Path to your image
-    image = np.array(Image.open(image_path))  # Read image as a NumPy array
-    image_float_np = np.float32(image) / 255  # Normalize pixel values (0 to 1)
+    image = Image.open(image_path)  # Open the image using PIL
+    image = image.resize((640, 640))  # Resize the image to 640x640
+    image_float_np = np.array(image).astype(np.float32) / 255  # Convert to NumPy array and normalize pixel values (0 to 1)
 
     # Define the torchvision image transforms
     transform = torchvision.transforms.Compose([

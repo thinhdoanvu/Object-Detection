@@ -3,54 +3,48 @@ from ultralytics import YOLO
 from ultralytics import RTDETR
 import warnings
 warnings.filterwarnings('ignore')
-warnings.simplefilter('ignore')
 import torch
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-import requests
-import torchvision.transforms as transforms
-from PIL import Image
-import io
-
-plt.rcParams["figure.figsize"] = [3.0, 3.0]
-
 from yolo_cam.eigen_cam import EigenCAM
-from yolo_cam.utils.image import show_cam_on_image, scale_cam_image
+from yolo_cam.utils.image import show_cam_on_image
 
-# For the object detection model
-# model = YOLO('models/ip102_Finalv2l_691.pt')
-# model = YOLO('models/ip102_yolov8m_67.8.pt')
-# model = YOLO('models/ip102_yolov8s_68.3.pt')
-# model = YOLO('models/ip102_yolov9m_687.pt')
-# model = YOLO('models/ip102_yolov10l_625.pt')
-# model = YOLO('models/yolo11n.pt')
-# model = YOLO('models/ip102_yolov8x_69.7.pt')
-# model = YOLO('models/k4_69.4.pt')
-# model = YOLO('models/k5_69.3.pt')
-# model = YOLO('models/r2000_81.1.pt')
-# model = YOLO('models/pest24_v9m.pt')
-model = RTDETR('models/biodetr.pt')   # activate biodetr first
-# model = RTDETR('models/rtdetr.pt')   # activate thinhdv first
-
+# Load YOLO model
+# model = YOLO('models/yolo11l.pt')
+model = RTDETR('models/rtdetr.pt') # # activate thinhdv first
+# model = YOLO('models/r2000_81.1.pt')# # activate thinhdv first
 
 model.cpu()
 
-img = cv2.imread('images/IP038000453.jpg')
-# img = cv2.imread('images/IP014000284.jpg')
-# img = cv2.imread('images/00_00046_.jpg')
-
+# Load image
+img = cv2.imread('images/14_00135_.jpg')
 img = cv2.resize(img, (640, 640))
 rgb_img = img.copy()
-img = np.float32(img) / 255
+img = np.float32(img) / 255.0
 
-target_layers =[model.model.model[-4]]
+# Setup target layer
+target_layers = [model.model.model[-4]]
 
-cam = EigenCAM(model, target_layers,task='od')
+# Run EigenCAM
+cam = EigenCAM(model, target_layers, task='od')
 grayscale_cam = cam(rgb_img)[0, :, :]
+
+# Show CAM overlay on image
 cam_image = show_cam_on_image(img, grayscale_cam, use_rgb=True)
-plt.imshow(cam_image)
-plt.savefig(f'outputs/biodetr.jpg')  # Save the plot as an image file
+
+# Plot with colorbar
+fig, ax = plt.subplots(figsize=(5, 5))
+im = ax.imshow(cam_image)
+ax.axis('off')
+
+# Add colorbar with range 0–255
+cbar = plt.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+# cbar.set_label('CAM Intensity (0–255)')
+cbar.set_ticks([0, 64, 128, 192, 255])
+cbar.set_ticklabels(['0', '64', '128', '192', '255'])
+
+# Save and show
+plt.savefig('outputs/rtdetr.jpg', bbox_inches='tight', pad_inches=0.1)
 plt.show()
 plt.close()
-

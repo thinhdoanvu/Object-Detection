@@ -2,11 +2,33 @@ from ultralytics import YOLO
 import time
 import torch
 
-model = YOLO("runs/detect/train/weights/best.pt")
-img = "data/images/test.jpg"
-
+#model = YOLO("runs/detect/k4_69.4/weights/best.pt")
+#model = YOLO("runs/detect/ip102_v8l_68.4/weights/best.pt")
+#model = YOLO("runs/detect/v9c_68.3/weights/best.pt")
+#model = YOLO("runs/detect/v10m_66.9/weights/best.pt")
+#model = YOLO("runs/detect/v11m_67.6/weights/best.pt")
+#model = YOLO("runs/detect/ip102_Final_v2_mmodel_68.5/weights/best.pt")
+#model = YOLO("runs/detect/ip102_Final_v2_xmodel_68.5/weights/best.pt")
+# tu tai model YOLO
+#model = YOLO('yolov10l.pt')
+model = YOLO("runs/detect/ip102_Finalv2_nmodel_68.7/weights/best.pt")
+model = YOLO("runs/detect/ip102_Final_v2_lmodel_69.1/weights/best.pt")
+img = "../../datasets/IP102/val/images/IP000000108.jpg"
 start = time.time()
 results = model(img)
 end = time.time()
-
 print(f"Inference time: {(end - start)*1000:.2f} ms/image")
+
+# RTDETR
+from ultralytics import RTDETR
+model = RTDETR("rtdetr-l.pt")
+img = "../../datasets/IP102/val/images/IP000000108.jpg"
+start = time.time()
+results = model(img)
+end = time.time()
+print(f"Inference time: {(end - start)*1000:.2f} ms/image")
+
+
+#Bio-DETR
+from ultralytics import Bio-DETR
+

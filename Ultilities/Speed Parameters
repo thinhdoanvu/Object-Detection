@@ -30,5 +30,17 @@ print(f"Inference time: {(end - start)*1000:.2f} ms/image")
 
 
 #Bio-DETR
-from ultralytics import Bio-DETR
+Path: .../ObjecDetection/Bio_DETR/
+activate biodetr
+import time
+import torch
+
+from ultralytics import YOLO
+model = YOLO("weights/bio-detr.pt")
+img = "../datasets/IP102/val/images/IP000000108.jpg"
+start = time.time()
+results = model(img)
+end = time.time()
+print(f"Inference time: {(end - start)*1000:.2f} ms/image")
+
 

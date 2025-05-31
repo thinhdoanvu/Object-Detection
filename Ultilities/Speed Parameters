@@ -1,0 +1,12 @@
+from ultralytics import YOLO
+import time
+import torch
+
+model = YOLO("runs/detect/train/weights/best.pt")
+img = "data/images/test.jpg"
+
+start = time.time()
+results = model(img)
+end = time.time()
+
+print(f"Inference time: {(end - start)*1000:.2f} ms/image")

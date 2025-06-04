@@ -6,7 +6,7 @@ import torch
 #model = YOLO("runs/detect/ip102_v8l_68.4/weights/best.pt")
 #model = YOLO("runs/detect/v9c_68.3/weights/best.pt")
 #model = YOLO("runs/detect/v10m_66.9/weights/best.pt")
-#model = YOLO("runs/detect/v11m_67.6/weights/best.pt")
+#model = YOLO("runs/detect/v11_m_67.6/weights/best.pt")
 #model = YOLO("runs/detect/ip102_Final_v2_mmodel_68.5/weights/best.pt")
 #model = YOLO("runs/detect/ip102_Final_v2_xmodel_68.5/weights/best.pt")
 # tu tai model YOLO

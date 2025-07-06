@@ -9,22 +9,37 @@ import os
 import glob
 
 # Load model
-model = YOLO("./runs/detect/r2000_k4_81.1/weights/best.pt")
-model=YOLO("./runs/detect/r2000_v9c_66.3/weights/best.pt")
-model=YOLO("./runs/detect/r2000_v10_60.5/weights/best.pt")
-model=YOLO("./runs/detect/r2000_11m_67.4/weights/best.pt")
-model=YOLO("./runs/detect/r2000_v8l_67.0/weights/best.pt")
+# model = YOLO("./runs/detect/r2000_k4_81.1/weights/best.pt")
+# model=YOLO("./runs/detect/r2000_v9c_66.3/weights/best.pt")
+# model=YOLO("./runs/detect/r2000_v10_60.5/weights/best.pt")
+# model=YOLO("./runs/detect/r2000_11m_67.4/weights/best.pt")
+# model=YOLO("./runs/detect/r2000_v8l_67.0/weights/best.pt")
+# model=YOLO("./runs/detect/r2000_v10_60.5/weights/best.pt") # biodetr
+
+
+#--RTDETR--
+# from ultralytics import RTDETR  # Load a model
+# model=RTDETR("./runs/detect/r2000_detr/weights/best.pt")
+
+
+# model = YOLO("./runs/detect/k4_69.4/weights/best.pt")
+# model=YOLO("./runs/detect/v9m_68.7/weights/best.pt")
+# model=YOLO("./runs/detect/v10m_66.9/weights/best.pt")
+# model=YOLO("./runs/detect/v11_m_67.6/weights/best.pt")
+# model=YOLO("./runs/detect/v9c_68.3/weights/best.pt") # v8L
+# model=YOLO("./runs/detect/v10n_63.2/weights/best.pt") # biodetr
+model=YOLO("./runs/detect/v10s_66.9/weights/best.pt") # RTDETR
 
 # Generate palette
 def get_palette(num_classes):
     np.random.seed(42)
     return [tuple(np.random.randint(0, 256, size=3).tolist()) for _ in range(num_classes)]
 
-palette = get_palette(16)
+palette = get_palette(102)
 
 # Input/output folders
-input_dir = 'F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/r2000v1/test'
-output_dir = 'pred_hspda_R2000'
+input_dir = 'F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/IP102/test'
+output_dir = 'pred_RTDETR_IP102'
 os.makedirs(output_dir, exist_ok=True)
 
 # Get all image paths

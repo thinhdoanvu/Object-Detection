@@ -1,0 +1,63 @@
+from ultralytics import YOLO
+import numpy as np
+import cv2
+import os
+import glob
+
+# Load model
+# model = YOLO("./runs/detect/r2000_k4_81.1/weights/best.pt")
+# model=YOLO("./runs/detect/r2000_v9c_66.3/weights/best.pt")
+# model=YOLO("./runs/detect/r2000_v10_60.5/weights/best.pt")
+# model=YOLO("./runs/detect/r2000_11m_67.4/weights/best.pt")
+# model=YOLO("./runs/detect/r2000_v8l_67.0/weights/best.pt")
+# model=YOLO("./runs/detect/r2000_v10_60.5/weights/best.pt") # biodetr
+
+
+#--RTDETR--
+# from ultralytics import RTDETR  # Load a model
+# model=RTDETR("./runs/detect/r2000_detr/weights/best.pt")
+
+
+model = YOLO("./runs/detect/k4_69.4/weights/best.pt")
+# model=YOLO("./runs/detect/v9m_68.7/weights/best.pt")
+# model=YOLO("./runs/detect/v10m_66.9/weights/best.pt")
+# model=YOLO("./runs/detect/v11_m_67.6/weights/best.pt")
+# model=YOLO("./runs/detect/v9c_68.3/weights/best.pt") # v8L
+# model=YOLO("./runs/detect/v10n_63.2/weights/best.pt") # biodetr
+# model=YOLO("./runs/detect/v10s_66.9/weights/best.pt") # RTDETR
+
+# Generate palette
+def get_palette(num_classes):
+    np.random.seed(42)
+    return [tuple(np.random.randint(0, 256, size=3).tolist()) for _ in range(num_classes)]
+
+palette = get_palette(102)
+
+# Input/output folders
+input_dir = 'F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/IP102/testfull/images'
+output_dir = 'pred_HSPDA_IP102_FULL'
+os.makedirs(output_dir, exist_ok=True)
+
+# Get all image paths
+image_paths = glob.glob(os.path.join(input_dir, '*.jpg'))
+
+for img_path in image_paths:
+    image = cv2.imread(img_path)
+    img_name = os.path.basename(img_path)
+    out_path = os.path.join(output_dir, img_name)
+
+    results = model(img_path)[0]
+
+    for box in results.boxes:
+        x1, y1, x2, y2 = map(int, box.xyxy[0])
+        conf = float(box.conf[0])
+        cls_id = int(box.cls[0])
+        color = palette[cls_id % len(palette)]
+
+        cv2.rectangle(image, (x1, y1), (x2, y2), color, 2)
+        text = f'{cls_id:02d} {conf:.2f}'
+        cv2.putText(image, text, (x1, y1 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
+
+    cv2.imwrite(out_path, image)
+
+print(f'✅ Done. Visualized results saved to: {output_dir}')

@@ -160,6 +160,9 @@ model.train(data="../pest24/pest24.yaml", epochs=200, batch=32, imgsz=640)
 yolo train model=rtdetr-l.pt data=../pest24/pest24.yaml batch=16 epochs=100 imgsz=640
 # 681 layers, 33,015,686 parameters, 33,015,686 gradients, 108.4 GFLOPs ==> ???
 
+****************** PRETRAIN from K4 (IP102) to R2000 *************************
+yolo train model=?.pt data=?.yaml epochs=200 imgsz=640 batch=16
+
 
 #PREDICT
 from ultralytics import YOLO  # Load a model

@@ -161,7 +161,8 @@ yolo train model=rtdetr-l.pt data=../pest24/pest24.yaml batch=16 epochs=100 imgs
 # 681 layers, 33,015,686 parameters, 33,015,686 gradients, 108.4 GFLOPs ==> ???
 
 ****************** PRETRAIN from K4 (IP102) to R2000 *************************
-yolo train model=?.pt data=?.yaml epochs=200 imgsz=640 batch=16
+(thinhdv) F:\users\thanh\ntu_group\thinh\ObjectDetection\yolo11\ultralytics>
+yolo task=detect mode=train model=runs\detect\k4_3713_69.7\weights\best.pt data=..\..\datasets\r2000v1\r2000v1.yaml epochs=200 imgsz=640 plots=True
 
 
 #PREDICT
@@ -173,3 +174,10 @@ model.predict("../coco/smalltest/images/*.jpg", save=True, imgsz=640, conf=0.5)
 from ultralytics import YOLO  # Load a model
 model=YOLO("./runs/detect/neckvit_fishblood/weights/best.pt")
 model.predict("../FishBlood/308908_DemHongCau/test/*.jpg", save=True, imgsz=640, conf=0.5)
+
+*********YOLO12**********
+(yolo12) F:\users\thanh\ntu_group\thinh\ObjectDetection\yolov12\ultralytics>python
+from ultralytics import YOLO
+model=YOLO("./cfg/models/12/yolo12l.yaml")
+model.train(data="../../datasets/ip102/ip102.yaml", epochs=200, batch=16, imgsz=640)
+

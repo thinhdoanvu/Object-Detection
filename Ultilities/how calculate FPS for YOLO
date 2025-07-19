@@ -1,3 +1,6 @@
+'''
+activate yolo12
+'''
 import time
 from ultralytics import YOLO
 import cv2

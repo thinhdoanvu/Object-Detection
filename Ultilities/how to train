@@ -170,7 +170,7 @@ from ultralytics import YOLO
 model=YOLO("./cfg/models/cct/cct5.yaml")
 model=YOLO("./runs/detect/cct5_69.2/weights/best.pt")
 model = YOLO("./cfg/models/cct/cct5.yaml").load("./runs/detect/cct5_69.2/weights/best.pt")
-model.train(data="../../datasets/r2000v1/r2000v1.yaml, epochs=0, imgsz=640, plots=True)
+model.train(data="../../datasets/r2000v1/r2000v1.yaml", epochs=0, imgsz=640, plots=True)
 
 =.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=
 #PREDICT

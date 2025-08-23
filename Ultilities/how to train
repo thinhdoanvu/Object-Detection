@@ -164,7 +164,15 @@ yolo train model=rtdetr-l.pt data=../pest24/pest24.yaml batch=16 epochs=100 imgs
 (thinhdv) F:\users\thanh\ntu_group\thinh\ObjectDetection\yolo11\ultralytics>
 yolo task=detect mode=train model=runs\detect\k4_3713_69.7\weights\best.pt data=..\..\datasets\r2000v1\r2000v1.yaml epochs=200 imgsz=640 plots=True
 
+SMALL OBJECT:
+activate smallobj
+from ultralytics import YOLO
+model=YOLO("./cfg/models/cct/cct5.yaml")
+model=YOLO("./runs/detect/cct5_69.2/weights/best.pt")
+model = YOLO("./cfg/models/cct/cct5.yaml").load("./runs/detect/cct5_69.2/weights/best.pt")
+model.train(data="../../datasets/r2000v1/r2000v1.yaml, epochs=0, imgsz=640, plots=True)
 
+=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=
 #PREDICT
 from ultralytics import YOLO  # Load a model
 model=YOLO("./runs/detect/train3/weights/best.pt")

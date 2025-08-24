@@ -1,6 +1,6 @@
 import os
 import xml.etree.ElementTree as ET
-
+#KHONG CAN TAO FILE CLASSES MA LAY TU FILE TRAIN
 # 📂 Paths
 xml_dir = r"F:\users\thanh\ntu_group\thinh\ObjectDetection\datasets\Pest24v2\voc2007\voc2007\xmlval"
 txt_dir = r"F:\users\thanh\ntu_group\thinh\ObjectDetection\datasets\Pest24v2\voc2007\voc2007\txtval"

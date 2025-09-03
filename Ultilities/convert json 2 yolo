@@ -1,0 +1,145 @@
+import json
+import glob
+import os
+from PIL import Image
+import numpy as np
+import xml.etree.ElementTree as ET
+
+
+def json_to_text(in_json, out_folder, out_classes="classes.txt", classes=None):
+    """
+    Convert COCO/MMDet style JSON to YOLO format labels.
+
+    Args:
+        in_json: input JSON file
+        out_folder: output folder storing YOLO text files
+        out_classes: path to save classes.txt
+        classes: list of class names in correct order (optional).
+                 If None, order is taken from JSON categories.
+    """
+    # Read JSON
+    with open(in_json, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    # ---- Build categories mapping ----
+    cats = data.get("categories", [])
+    if not cats:
+        raise ValueError("No 'categories' field found in JSON")
+
+    if classes:  # dùng list được truyền vào
+        names = classes
+        id2idx = {c["id"]: names.index(c["name"]) for c in cats if c["name"] in names}
+    else:  # mặc định dùng categories trong JSON
+        # sort theo id để giữ trật tự như COCO
+        cats_sorted = sorted(cats, key=lambda c: c["id"])
+        names = [c["name"] for c in cats_sorted]
+        id2idx = {c["id"]: i for i, c in enumerate(cats_sorted)}
+
+    # ---- Write classes.txt ----
+    os.makedirs(os.path.dirname(out_classes) or ".", exist_ok=True)
+    with open(out_classes, "w", encoding="utf-8") as f_out:
+        for name in names:
+            f_out.write(name + "\n")
+    print(f"Saved classes to {out_classes}")
+
+    # ---- Group annotations by image_id ----
+    anns_by_img = {}
+    for ann in data["annotations"]:
+        anns_by_img.setdefault(ann["image_id"], []).append(ann)
+
+    os.makedirs(out_folder, exist_ok=True)
+
+    # ---- Process each image ----
+    for data_img in data["images"]:
+        H, W = data_img["height"], data_img["width"]
+        img_id = data_img["id"]
+
+        stem, _ = os.path.splitext(data_img["file_name"])
+        out_path = os.path.join(out_folder, stem + ".txt")
+
+        with open(out_path, "w", encoding="utf-8") as f_out:
+            for ann in anns_by_img.get(img_id, []):
+                bbox = ann["bbox"]  # [x, y, w, h]
+                x_center = (bbox[0] + bbox[2] / 2) / W
+                y_center = (bbox[1] + bbox[3] / 2) / H
+                width = bbox[2] / W
+                height = bbox[3] / H
+                cls_id = id2idx.get(ann["category_id"], 0)  # default 0 nếu không có
+
+                line = f"{cls_id} {x_center:.6f} {y_center:.6f} {width:.6f} {height:.6f}\n"
+                f_out.write(line)
+
+        print(f"{out_path} done")
+
+
+
+def text_to_jsoin(in_labels, in_images, out_json):
+    """
+    Convert dataset in text files (for YOLOv4 and YOLOv5) to a JSON file (for MMdet)
+    Please read the Tutorials to understand the required format for MMDet, YOLOv4, and YOLOv5
+    :param in_labels: input folder containing the label text files
+    :param in_images: input folder containing the image files (just for getting the image size)
+    :param out_json: output JSON file
+    """
+    # Initialize the output JSON file
+    data = dict()
+    data['type'] = 'instance'
+    data['categories'] = [{'supercategory': str('none'),
+                           'id': 1,
+                           'name': 'ship'}]  # assume that we only have a class of 'ship'
+    data['images'] = []
+    data['annotations'] = []
+
+    # Initial the number of annotations
+    num_annotations = 0
+
+    # Process the text files
+    txt_files = glob.glob(in_labels + '/*.txt')
+    for k in range(len(txt_files)):
+        # Read the image to get the information of width and height
+        img = Image.open(in_images + '/' + os.path.basename(txt_files[k]).replace('txt', 'jpg'))
+        W, H = img.size
+
+        # Create an new image item and append it to the list
+        img_item = dict()
+        img_item['id'] = k
+        img_item['file_name'] = os.path.basename(txt_files[k]).replace('txt', 'jpg')
+        img_item['height'] = H
+        img_item['width'] = W
+        data['images'].append(img_item)
+
+        # Creates annotation items of the image and append them to the list
+        with open(txt_files[k]) as f:
+            for line in f:
+                line = line.split()
+                x_center = float(line[1]) * W  # denormalize to get the actual coordinates in pixels
+                y_center = float(line[2]) * H
+                width = float(line[3]) * W
+                height = float(line[4]) * H
+                x = int(x_center - width / 2)
+                y = int(y_center - height / 2)
+
+                # Create a new annotation item
+                ann_item = dict()
+                ann_item['id'] = num_annotations
+                ann_item['image_id'] = k
+                ann_item['category_id'] = 1  # assume that we only have a class of 'Ship'
+                ann_item['bbox'] = [x, y, int(width), int(height)]
+                ann_item['area'] = int(width) * int(height)
+                ann_item['iscrowd'] = 0
+                data['annotations'].append(ann_item)
+                num_annotations += 1
+
+        print(os.path.basename(txt_files[k]) + ' done')
+
+    # Write the dictionary to a JSON file
+    with open(out_json, 'w') as f:
+        json.dump(data, f)
+
+if __name__ == '__main__':
+    # 1. Test JSON to text
+    json_to_text(
+        in_json="F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/SODAD/annotations/train.json",
+        out_folder="F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/SODAD/train/labels/",
+        out_classes="F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/SODAD/classes.txt"
+    )

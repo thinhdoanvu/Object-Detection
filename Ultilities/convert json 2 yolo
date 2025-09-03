@@ -137,6 +137,51 @@ def text_to_jsoin(in_labels, in_images, out_json):
         json.dump(data, f)
 
 if __name__ == '__main__':
+    print("CLASSNAME NAM O DOAN CUOI CUNG CUA FILE JSON: ")
+    '''
+        "categories": [
+        {
+            "id": 1,
+            "name": "people"
+        },
+        {
+            "id": 2,
+            "name": "rider"
+        },
+        {
+            "id": 3,
+            "name": "bicycle"
+        },
+        {
+            "id": 4,
+            "name": "motor"
+        },
+        {
+            "id": 5,
+            "name": "vehicle"
+        },
+        {
+            "id": 6,
+            "name": "traffic-sign"
+        },
+        {
+            "id": 7,
+            "name": "traffic-light"
+        },
+        {
+            "id": 8,
+            "name": "traffic-camera"
+        },
+        {
+            "id": 9,
+            "name": "warning-cone"
+        },
+        {
+            "id": 10,
+            "name": "ignore"
+        }
+    ]
+    '''
     # 1. Test JSON to text
     json_to_text(
         in_json="F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/SODAD/annotations/train.json",

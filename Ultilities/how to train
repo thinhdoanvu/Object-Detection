@@ -164,13 +164,23 @@ yolo train model=rtdetr-l.pt data=../pest24/pest24.yaml batch=16 epochs=100 imgs
 (thinhdv) F:\users\thanh\ntu_group\thinh\ObjectDetection\yolo11\ultralytics>
 yolo task=detect mode=train model=runs\detect\k4_3713_69.7\weights\best.pt data=..\..\datasets\r2000v1\r2000v1.yaml epochs=200 imgsz=640 plots=True
 
-SMALL OBJECT:
+!!!!!!!!!!!!!!!!!!!!!!!!! SMALL OBJECT: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+TRAIN:
+
 activate smallobj
 from ultralytics import YOLO
 model=YOLO("./cfg/models/cct/cct5.yaml")
 model=YOLO("./runs/detect/cct5_69.2/weights/best.pt")
 model = YOLO("./cfg/models/cct/cct5.yaml").load("./runs/detect/cct5_69.2/weights/best.pt")
 model.train(data="../../datasets/r2000v1/r2000v1.yaml", epochs=200, imgsz=640, plots=True)
+
+VALIDATE:
+from ultralytics import YOLO
+model = YOLO("'runs/detect/cct12_uavvaste_83.6/weights/best.pt")
+metrics = model.val()
+Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100%|██████████| 7/7 [00:04<0
+                   all        108        556      0.847      0.784      0.833      0.488
+Speed: 0.3ms preprocess, 7.5ms inference, 0.0ms loss, 0.9ms postprocess per image
 
 =.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=
 #PREDICT

@@ -143,3 +143,13 @@ if __name__ == '__main__':
         out_folder="F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/SODAD/train/labels/",
         out_classes="F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/SODAD/classes.txt"
     )
+    json_to_text(
+        in_json="F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/SODAD/annotations/val.json",
+        out_folder="F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/SODAD/val/labels/",
+        #out_classes="F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/SODAD/classes.txt"
+    )
+    json_to_text(
+        in_json="F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/SODAD/annotations/test.json",
+        out_folder="F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/SODAD/test/labels/",
+        #out_classes="F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/SODAD/classes.txt"
+    )

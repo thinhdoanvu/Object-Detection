@@ -1,45 +1,48 @@
 import os
+import random
 import shutil
-import numpy as np
-from sklearn.model_selection import train_test_split
+from tqdm import tqdm
 
-# Define paths
-# src_folder = 'Negative'
-# train_folder = 'Negative/train'
-# valid_folder = 'Negative/valid'
-# test_folder = 'Negative/test'
+def split_dataset(images_dir, labels_dir, output_dir, val_ratio=0.2, seed=42):
+    random.seed(seed)
 
-src_folder = 'Positive'
-train_folder = 'Positive/train'
-valid_folder = 'Positive/valid'
-test_folder = 'Positive/test'
+    # Lấy danh sách file ảnh (đuôi .jpg, .png, .jpeg)
+    exts = (".jpg", ".jpeg", ".png")
+    images = [f for f in os.listdir(images_dir) if f.lower().endswith(exts)]
+    random.shuffle(images)
 
-# Create directories if they don't exist
-os.makedirs(train_folder, exist_ok=True)
-os.makedirs(valid_folder, exist_ok=True)
-os.makedirs(test_folder, exist_ok=True)
+    n_val = int(len(images) * val_ratio)
+    val_images = images[:n_val]
+    train_images = images[n_val:]
 
-# Get list of image files
-all_images = [f for f in os.listdir(src_folder) if os.path.isfile(os.path.join(src_folder, f))]
+    # Tạo thư mục output
+    for split in ["train", "val"]:
+        os.makedirs(os.path.join(output_dir, "images", split), exist_ok=True)
+        os.makedirs(os.path.join(output_dir, "labels", split), exist_ok=True)
 
-# Split data into train and temp (valid + test)
-train_images, temp_images = train_test_split(all_images, test_size=0.3, random_state=42)
+    # Hàm copy ảnh + label
+    def copy_files(file_list, split):
+        for img_file in tqdm(file_list, desc=f"Copying {split}", unit="file"):
+            # Copy ảnh
+            src_img = os.path.join(images_dir, img_file)
+            dst_img = os.path.join(output_dir, "images", split, img_file)
+            shutil.copy2(src_img, dst_img)
 
-# Split temp into valid and test
-valid_images, test_images = train_test_split(temp_images, test_size=0.5, random_state=42)
+            # Copy label nếu có
+            label_file = os.path.splitext(img_file)[0] + ".txt"
+            src_label = os.path.join(labels_dir, label_file)
+            if os.path.exists(src_label):
+                dst_label = os.path.join(output_dir, "labels", split, label_file)
+                shutil.copy2(src_label, dst_label)
 
-# Move images to their respective folders
-def move_files(file_list, src_folder, dst_folder):
-    for file_name in file_list:
-        src_file = os.path.join(src_folder, file_name)
-        dst_file = os.path.join(dst_folder, file_name)
-        shutil.copy(src_file, dst_file)
+    # Chia train/val
+    copy_files(train_images, "train")
+    copy_files(val_images, "val")
 
-# Move the files
-move_files(train_images, src_folder, train_folder)
-move_files(valid_images, src_folder, valid_folder)
-move_files(test_images, src_folder, test_folder)
+    print(f"✅ Done! {len(train_images)} train images, {len(val_images)} val images.")
 
-print(f"Training set: {len(train_images)} images")
-print(f"Validation set: {len(valid_images)} images")
-print(f"Test set: {len(test_images)} images")
+if __name__ == "__main__":
+    images_dir = "../datasets/aortic_valve/images"   # Thư mục ảnh gốc
+    labels_dir = "../datasets/aortic_valve/labels"   # Thư mục nhãn gốc
+    output_dir = "../datasets/aortic_valve/dataset_yolo"     # Thư mục output sau khi chia
+    split_dataset(images_dir, labels_dir, output_dir, val_ratio=0.2)

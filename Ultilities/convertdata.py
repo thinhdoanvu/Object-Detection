@@ -119,11 +119,31 @@ def xml_to_text(xml_folder, txt_folder):
     xml_files = glob.glob(os.path.join(xml_folder, '*.xml'))
 
     # Define class mappings here if needed
-    class_mapping = {
-        'D00': 0,  # Map class names to IDs
-        'D10': 1,
-        'D20': 2,
-        'D40': 3
+    class_mapping =  {
+        'Aphid': 0,
+        'Armyworm': 1,
+        'Bagworm': 2,
+        'Beetle': 3,
+        'Bollworm': 4,
+        'Cicada': 5,
+        'Cutworm': 6,
+        'Grasshopper': 7,
+        'Greenfly': 8,
+        'Leafhopper': 9,
+        'Leafminer': 10,
+        'Leafroller': 11,
+        'Locust': 12,
+        'Moth': 13,
+        'Planthopper': 14,
+        'Sawfly': 15,
+        'Scale': 16,
+        'Spidermite': 17,
+        'Stinkbug': 18,
+        'Thrips': 19,
+        'Tussockmoth': 20,
+        'Whitefly': 21,
+        'Woollyaphid': 22,
+        'Yellowmite': 23
     }
 
     for xml_file in xml_files:
@@ -231,22 +251,21 @@ def json_to_json(in_folder, out_json):
 
 if __name__ == '__main__':
     # 1. Test JSON to text
-    #json_to_text(in_json='./annotations/instances_val2017.json',
-    #             out_folder='./labels/val')
+    json_to_text(in_json='F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/SODAD/annotations/test.json',
+                out_folder='F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/SODAD/test/labels')
 
     # 2. Test text to JSON
-    # text_to_json(in_labels='/data/SAR_ship_detection/datasets/HRSID/train/labels',
-    #              in_images='/data/SAR_ship_detection/datasets/HRSID/train/images',
-    #              out_json='/data/SAR_ship_detection/datasets/HRSID/train/train.json')
+    # text_to_json(in_labels='E:/thanh/ntu_group/thinh/ObjectDetection/datasets/IP102/train/labels',
+    #              in_images='E:/thanh/ntu_group/thinh/ObjectDetection/datasets/IP102/train/images',
+    #              out_json='E:/thanh/ntu_group/thinh/ObjectDetection/datasets/IP102/train/instances_train2017.json')json
 
     # 3. Test XML to text
-    xml_to_text(xml_folder='./rdd2022/RDD2022_released_through_CRDDC2022/RDD2022/China_Drone/China_Drone/train/annotations/xmls',
-                txt_folder='./rdd2022/RDD2022_released_through_CRDDC2022/RDD2022/China_Drone/China_Drone/train/labels')
+    # xml_to_text(xml_folder='./rdd2022/RDD2022_released_through_CRDDC2022/RDD2022/China_Drone/China_Drone/train/annotations/xmls',
+    #             txt_folder='./rdd2022/RDD2022_released_through_CRDDC2022/RDD2022/China_Drone/China_Drone/train/labels')
     # xml_to_text(xml_folder='./BCCD/valid/Annotations',
     #             txt_folder='./BCCD/valid/labels')
-    xml_to_text(xml_folder='./rdd2022/RDD2022_released_through_CRDDC2022/RDD2022/China_Drone/China_Drone/test/annotations/xmls',
-                txt_folder='./rdd2022/RDD2022_released_through_CRDDC2022/RDD2022/China_Drone/China_Drone/test/labels')
+    # xml_to_text(xml_folder='./rdd2022/RDD2022_released_through_CRDDC2022/RDD2022/China_Drone/China_Drone/test/annotations/xmls',
+    #             txt_folder='./rdd2022/RDD2022_released_through_CRDDC2022/RDD2022/China_Drone/China_Drone/test/labels')
 
-    # 4. Test XML to text
-    # json_to_json(in_folder='/data/SAR_ship_detection/datasets/SSDD/annotations',
-    #              out_json='/data/SAR_ship_detection/datasets/SSDD/dataset.json')
+    # xml_to_text(xml_folder='F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/Pest24v2/VOCdevkit/voc2007/xmltrain',
+    #         txt_folder='F:/users/thanh/ntu_group/thinh/ObjectDetection/datasets/Pest24v2/VOCdevkit/voc2007/txttrain')

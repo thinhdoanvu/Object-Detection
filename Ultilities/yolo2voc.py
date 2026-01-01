@@ -63,8 +63,8 @@ def xml_transform(root, classes):
     annopath = join(root, 'labels', '%s.txt')
     imgpath = join(root, 'images', '%s.jpg')
 
-    os.makedirs(join(root, 'outputs'), exist_ok=True)
-    outpath = join(root, 'outputs', '%s.xml')
+    os.makedirs(join(root, 'outputs_r2000'), exist_ok=True)
+    outpath = join(root, 'outputs_r2000', '%s.xml')
 
     for i in range(len(ids)):
         img_id = ids[i]
